@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import DatePicker from "react-datepicker";
+import React from "react";
+
 import "react-datepicker/dist/react-datepicker.css";
 const Time = ({ setSelectedDate, setSelectedTime }) => {
   return (

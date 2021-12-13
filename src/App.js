@@ -1,9 +1,9 @@
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, InputGroup, FormControl } from "react-bootstrap";
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import TodoList from "./components/TodoList";
 import Time from "./components/Time";
+
 function App() {
   var [text, setText] = useState("");
   var [itemList, setItemList] = useState([]);
