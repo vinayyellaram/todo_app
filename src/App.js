@@ -1,39 +1,41 @@
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, InputGroup, FormControl } from "react-bootstrap";
 import React, { useState, useEffect, useCallback } from "react";
-import "./App.css";
+
 import TodoList from "./components/TodoList";
 import Time from "./components/Time";
-function App() {
-  var [text, setText] = useState("");
-  var [itemList, setItemList] = useState([]);
+
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+const App = () => {
+  const [text, setText] = useState("");
+  const [itemList, setItemList] = useState([]);
   const [setDate, setSelectedDate] = useState(null);
   const [setTime, setSelectedTime] = useState(null);
 
   useEffect(() => {
+    const getLocalTodos = () => {
+      if (localStorage.getItem("todos") === null) {
+        localStorage.setItem("todos", JSON.stringify([]));
+      } else {
+        let Localitems = JSON.parse(localStorage.getItem("todos"));
+        setItemList(Localitems);
+      }
+    };
+
     getLocalTodos();
   }, []);
 
   useEffect(() => {
+    const saveLocalTodos = () => {
+      if (localStorage.getItem("todos") === null) {
+        localStorage.setItem("todos", JSON.stringify([]));
+      } else {
+        localStorage.setItem("todos", JSON.stringify(itemList));
+      }
+    };
+
     saveLocalTodos();
   }, [itemList]);
-
-  const saveLocalTodos = useCallback(() => {
-    if (localStorage.getItem("todos") === null) {
-      localStorage.setItem("todos", JSON.stringify([]));
-    } else {
-      localStorage.setItem("todos", JSON.stringify(itemList));
-    }
-  });
-
-  const getLocalTodos = () => {
-    if (localStorage.getItem("todos") === null) {
-      localStorage.setItem("todos", JSON.stringify([]));
-    } else {
-      let Localitems = JSON.parse(localStorage.getItem("todos"));
-      setItemList(Localitems);
-    }
-  };
 
   const handleChange = (e) => {
     setText(e.target.value);
@@ -64,6 +66,7 @@ function App() {
   return (
     <div className="App">
       <h1>Todo</h1>
+      {/* Accepting Text input */}
       <InputGroup className="mb-3">
         <InputGroup.Text id="basic-addon1"></InputGroup.Text>
         <FormControl
@@ -73,20 +76,19 @@ function App() {
           onChange={handleChange}
           value={text}
         />
-
         <Button variant="primary" type="submit" onClick={handleSubmit}>
           Add
         </Button>
       </InputGroup>
-
+      {/*To Seletect Due Time  */}
       <Time
         setSelectedDate={setSelectedDate}
         setSelectedTime={setSelectedTime}
       />
-
+      {/* Making Todos And Displaying */}
       <TodoList itemList={itemList} setItemList={setItemList} />
     </div>
   );
-}
+};
 
 export default App;
