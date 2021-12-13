@@ -10,6 +10,14 @@ function App() {
   const [setDate, setSelectedDate] = useState(null);
   const [setTime, setSelectedTime] = useState(null);
 
+  useEffect(() => {
+    getLocalTodos();
+  }, []);
+
+  useEffect(() => {
+    saveLocalTodos();
+  }, [itemList]);
+
   const saveLocalTodos = () => {
     if (localStorage.getItem("todos") === null) {
       localStorage.setItem("todos", JSON.stringify([]));
@@ -26,14 +34,6 @@ function App() {
       setItemList(Localitems);
     }
   };
-
-  useEffect(() => {
-    getLocalTodos();
-  }, []);
-
-  useEffect(() => {
-    saveLocalTodos();
-  }, [itemList]);
 
   const handleChange = (e) => {
     setText(e.target.value);
