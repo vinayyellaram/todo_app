@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Button, ListGroup } from "react-bootstrap";
 import { BsCheckLg, BsTrash } from "react-icons/bs";
 import { ImCross } from "react-icons/im";
 
 const Todos = ({ itemList, setItemList, item }) => {
   const [time, setTime] = useState(item.dueTime);
+  const [loading, setLoading] = useState(true);
+
+  const timerRef = useRef();
 
   const handleDelete = () => {
     const newtodo = itemList.filter((e) => e.id !== item.id);
@@ -14,8 +17,8 @@ const Todos = ({ itemList, setItemList, item }) => {
   const handleUpdate = () => {
     complementingCompletedAttribute();
   };
-  let loading = true;
-  useEffect(() => {
+
+  const Timer = () => {
     if (loading) {
       setTime("--:--:--");
 
@@ -39,8 +42,12 @@ const Todos = ({ itemList, setItemList, item }) => {
           setTime(days + "d" + hours + "h" + minutes + "m" + seconds + "s");
         }
       }, 1000);
-      loading = false;
+      setLoading(false);
     }
+  };
+  timerRef.current = Timer;
+  useEffect(() => {
+    timerRef.current();
   }, []);
 
   const complementingCompletedAttribute = () => {
