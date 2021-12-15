@@ -31,7 +31,7 @@ const Todos = ({ itemList, setItemList, item }) => {
         if (diff < 0) {
           clearInterval(interval);
           setTime("Time over");
-          complementingCompletedAttribute();
+          x();
         } else {
           let days = Math.floor(diff / (1000 * 60 * 60 * 24));
           let hours = Math.floor(
@@ -45,10 +45,28 @@ const Todos = ({ itemList, setItemList, item }) => {
       setLoading(false);
     }
   };
+
   timerRef.current = Timer;
   useEffect(() => {
     timerRef.current();
   }, []);
+
+  const x = () => {
+    setItemList(
+      itemList.map((element) => {
+        if (element.id === item.id) {
+          if (item.completed) {
+            console.log(item.completed);
+            return {
+              ...element,
+              completed: !element.completed,
+            };
+          }
+        }
+        return element;
+      })
+    );
+  };
 
   const complementingCompletedAttribute = () => {
     setItemList(
