@@ -14,8 +14,7 @@ const Todos = ({ itemList, setItemList, item }) => {
   const handleUpdate = () => {
     complementingCompletedAttribute();
   };
-  const [loading, setLoading] = useState(true);
-
+  let loading = true;
   useEffect(() => {
     if (loading) {
       setTime("--:--:--");
@@ -40,7 +39,7 @@ const Todos = ({ itemList, setItemList, item }) => {
           setTime(days + "d" + hours + "h" + minutes + "m" + seconds + "s");
         }
       }, 1000);
-      setLoading(false);
+      loading = false;
     }
   }, []);
 

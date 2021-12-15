@@ -64,8 +64,6 @@ const App = () => {
     setText("");
   };
 
-  const pomodore = () => {};
-
   return (
     <div className="App">
       <h1>Todo</h1>
