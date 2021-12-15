@@ -55,7 +55,7 @@ const App = () => {
       {
         text: text,
         id: Math.random(),
-        completed: false,
+        completed: true,
         dueDate: setDate,
         dueTime: setTime,
       },
@@ -63,6 +63,8 @@ const App = () => {
     setItemList(newList);
     setText("");
   };
+
+  const pomodore = () => {};
 
   return (
     <div className="App">
